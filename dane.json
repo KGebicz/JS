@@ -1,0 +1,32 @@
+[
+  {
+    "imie": "Kamil",
+    "klasa": "4TI",
+    "srednia": 4.7,
+    "zainteresowania": ["programowanie", "gry", "muzyka"]
+  },
+  {
+    "imie": "Ola",
+    "klasa": "3TP",
+    "srednia": 4.3,
+    "zainteresowania": ["fotografia", "plastyka", "taniec"]
+  },
+  {
+    "imie": "Ewa",
+    "klasa": "2TI",
+    "srednia": 3.9,
+    "zainteresowania": ["sport", "film", "muzyka"]
+  },
+  {
+    "imie": "Adam",
+    "klasa": "1TI",
+    "srednia": 4.1,
+    "zainteresowania": ["motoryzacja", "informatyka", "gry"]
+  },
+  {
+    "imie": "Natalia",
+    "klasa": "4TP",
+    "srednia": 5.0,
+    "zainteresowania": ["języki obce", "czytanie", "podróże"]
+  }
+]

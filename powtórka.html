@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* Prosty styl, żeby kod był czytelny podczas nauki */
+    body { font-family: Arial, sans-serif; background:#eef1f6; padding:18px; }
+    section { background:#fff; padding:14px; margin-bottom:12px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.1); }
+    button { padding:6px 10px; border-radius:6px; cursor:pointer; }
+    input { padding:6px; margin-right:6px; }
+    pre { background:#f7fafc; padding:8px; border-radius:6px; overflow:auto; }
+    .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+  <!-- Sekcja 1: Typy danych -->
+  <section>
+    <h2>1. Typy danych w JS</h2>
+    <div class="row">
+      <button id="btn-types">Pokaż typy (konsola)</button>
+      <span id="types-out"></span>
+    </div>
+  </section>
+
+  <!-- Sekcja 2: Funkcje -->
+  <section>
+    <h2>2. Funkcje – przykład: obliczanie kwadratu liczby</h2>
+    <div class="row">
+      <input id="num-in" type="number" placeholder="Wpisz liczbę" />
+      <button id="btn-square">Policz kwadrat</button>
+      <span id="square-out"></span>
+    </div>
+  </section>
+
+  <!-- Sekcja 3: Tablice -->
+  <section>
+    <h2>3. Tablice i operacje na nich</h2>
+    <div class="row">
+      <button id="btn-array">Pokaż działania (konsola)</button>
+      <button id="btn-array-view">Pokaż listę na stronie</button>
+    </div>
+    <ul id="fruits-list"></ul>
+  </section>
+
+  <!-- Sekcja 4: Obiekty -->
+  <section>
+    <h2>4. Obiekty i metody</h2>
+    <div class="row">
+      <button id="btn-object">Pokaż obiekt</button>
+      <span id="object-out"></span>
+    </div>
+  </section>
+
+  <!-- Sekcja 5: JSON + localStorage -->
+  <section>
+    <h2>5. JSON i localStorage</h2>
+    <div class="row">
+      <button id="btn-save">Zapisz dane</button>
+      <button id="btn-load">Wczytaj dane</button>
+      <button id="btn-clear">Usuń dane</button>
+    </div>
+    <pre id="storage-out"></pre>
+  </section>
+
+  <!-- Sekcja 6: Zdarzenia i kolor tła -->
+  <!-- <section>
+    <h2>6. Obsługa zdarzeń – losowy kolor tła</h2>
+    <div class="row">
+      <button id="btn-color">Zmień kolor tła</button>
+      <span id="color-out"></span>
+    </div>
+  </section> -->
+
+<script>
+/* ======================================================================
+   SEKJA 1 – Typy danych
+   ======================================================================
+   W JavaScript zmienne nie mają sztywnego typu. Typ zależy od wartości.
+   typeof() pozwala sprawdzić aktualny typ zmiennej.
+*/
+
+// Po kliknięciu przycisku pokazujemy typy w konsoli
+const btnTypes = document.getElementById('btn-types');
+btnTypes.addEventListener('click', function() {
+  // Deklaracja różnych typów zmiennych
+  let n = 42;             // number (liczba)
+  let s = 'tekst';        // string (ciąg znaków)
+  let b = true;           // boolean (prawda/fałsz)
+  let nothing = null;     // null – pusta wartość, obiektowa pustka
+  let undef;              // undefined – zmienna bez przypisanej wartości
+
+  // typeof zwraca typ w formie tekstu
+  console.log('typeof n =', typeof n);
+  console.log('typeof s =', typeof s);
+  console.log('typeof b =', typeof b);
+  console.log('typeof undef =', typeof undef);
+
+  // Pokazanie skróconego wyniku na stronie
+  document.getElementById('types-out').textContent = `Typy: ${typeof n}, ${typeof s}, ${typeof b}`;
+});
+
+/* ======================================================================
+   SEKJA 2 – Funkcje
+   ======================================================================
+   Funkcja to blok kodu, który wykonuje konkretne zadanie i może zwracać wynik.
+   Poniżej funkcja obliczająca kwadrat liczby.
+*/
+
+// Funkcja z jednym parametrem (x). Zwraca x do kwadratu.
+function kwadrat(x) {
+  // Operacja matematyczna: mnożenie liczby przez samą siebie
+  return x * x;
+}
+
+// Obsługa kliknięcia przycisku – reaguje na zdarzenie "click"
+const btnSquare = document.getElementById('btn-square');
+btnSquare.addEventListener('click', function() {
+  // Odczyt wartości z pola input (jako tekst)
+  const raw = document.getElementById('num-in').value;
+  // Zamiana tekstu na liczbę (parseFloat obsługuje liczby z przecinkiem)
+  const num = parseFloat(raw);
+
+  // Sprawdzenie czy wpisana wartość to rzeczywiście liczba
+  if (Number.isNaN(num)) {
+    document.getElementById('square-out').textContent = 'Wpisz poprawną liczbę';
+    return; // kończymy działanie funkcji
+  }
+
+  // Wywołanie funkcji i wyświetlenie wyniku
+  const wynik = kwadrat(num);
+  document.getElementById('square-out').textContent = `Kwadrat: ${wynik}`;
+});
+
+/* ======================================================================
+   SEKJA 3 – Tablice i pętle
+   ======================================================================
+   Tablica to lista wielu wartości przechowywanych w jednej zmiennej.
+   Możemy używać metod takich jak map(), filter(), forEach() itd.
+*/
+
+const fruits = ['jabłko', 'banan', 'gruszka','kiwi']; // tworzymy tablicę z trzema elementami
+
+// Wyświetlenie operacji tablicowych w konsoli
+const btnArray = document.getElementById('btn-array');
+btnArray.addEventListener('click', function() {
+  console.log('Początkowa tablica:', fruits);
+  // .map() – przekształca każdy element tablicy i tworzy nową tablicę
+  const upper = fruits.map(f => f.toUpperCase());
+  console.log('Wielkie litery:', upper);
+
+  // .filter() – wybiera elementy spełniające warunek
+  const withA = fruits.filter(f => f.includes('a'));
+  console.log('Z literą "a":', withA);
+
+  // .reduce() – łączy wszystkie elementy w jedną wartość (np. sumę długości)
+  const totalLen = fruits.reduce((sum, f) => sum + f.length, 0);
+  console.log('Suma długości nazw:', totalLen);
+});
+
+// Wyświetlenie listy na stronie (DOM)
+const btnArrayView = document.getElementById('btn-array-view');
+btnArrayView.addEventListener('click', function() {
+  const ul = document.getElementById('fruits-list');
+  ul.innerHTML = ''; // czyszczenie listy
+  fruits.forEach((fruit, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${index + 1}. ${fruit}`; // numeracja od 1
+    ul.appendChild(li);
+  });
+});
+
+/* ======================================================================
+   SEKJA 4 – Obiekty
+   ======================================================================
+   Obiekt przechowuje dane w parach klucz-wartość. Może też zawierać funkcje (metody).
+   this odnosi się do bieżącego obiektu, w którym metoda została wywołana.
+*/
+
+const btnObject = document.getElementById('btn-object');
+btnObject.addEventListener('click', function() {
+  const person = {
+    name: 'Łukasz',
+    age: 17,
+    info: function() {
+      // this wskazuje na ten konkretny obiekt (person)
+      return `${this.name} ma ${this.age} lat.`;
+    }
+  };
+
+  // Wywołanie metody obiektu
+  const wynik = person.info();
+  document.getElementById('object-out').textContent = wynik;
+  console.log('Obiekt:', person);
+});
+
+/* ======================================================================
+   SEKJA 5 – JSON i localStorage
+   ======================================================================
+   JSON (JavaScript Object Notation) to format do zapisu danych tekstowych.
+   localStorage pozwala przechowywać dane w przeglądarce na stałe.
+*/
+
+// Zapis danych do localStorage
+const btnSave = document.getElementById('btn-save');
+btnSave.addEventListener('click', function() {
+  const user = { imie: 'Jan', wiek: 18, kierunek: 'Informatyka' };
+  const tekst = JSON.stringify(user); // zamiana obiektu JS w tekst JSON
+  localStorage.setItem('dane_uzytkownika', tekst); // zapis w przeglądarce
+  document.getElementById('storage-out').textContent = 'Zapisano dane użytkownika.';
+});
+
+// Odczyt danych z localStorage
+const btnLoad = document.getElementById('btn-load');
+btnLoad.addEventListener('click', function() {
+  const raw = localStorage.getItem('dane_uzytkownika'); // pobieramy tekst
+  if (!raw) {
+    document.getElementById('storage-out').textContent = 'Brak danych w pamięci.';
+    return;
+  }
+  const obj = JSON.parse(raw); // zamiana tekstu z powrotem na obiekt
+  document.getElementById('storage-out').textContent = JSON.stringify(obj, null, 2);
+});
+
+// Usunięcie danych
+const btnClear = document.getElementById('btn-clear');
+btnClear.addEventListener('click', function() {
+  localStorage.removeItem('dane_uzytkownika');
+  document.getElementById('storage-out').textContent = 'Usunięto dane.';
+});
+
+/* ======================================================================
+   SEKJA 6 – Zdarzenia i dynamiczny styl strony
+   ======================================================================
+   Zdarzenia (eventy) pozwalają reagować na działania użytkownika, np. kliknięcia.
+   Poniżej przykład zmiany koloru tła losowym kolorem po kliknięciu przycisku.
+*/
+
+// const btnColor = document.getElementById('btn-color');
+// btnColor.addEventListener('click', function() {
+//   // Math.random() daje liczbę z zakresu 0–1. Mnożymy ją, aby uzyskać zakres 0–16777215 (kolory RGB w hex)
+//   const randomInt = Math.floor(Math.random() * 16777216);
+//   // .toString(16) zamienia liczbę na system szesnastkowy (np. FF0000)
+//   let hex = randomInt.toString(16).padStart(6, '0'); // uzupełniamy zerami do 6 cyfr
+//   const color = '#' + hex; // dodajemy znak #, aby powstał prawidłowy kolor CSS
+
+//   // Zmieniamy tło całej strony
+//   document.body.style.backgroundColor = color;
+//   document.getElementById('color-out').textContent = color;
+//   console.log('Nowy kolor tła:', color);
+// });
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Zmiany graficzne – 10 wariantów</title>
+
+<style>
+/* ----------------- STYLE GLOBALNE ----------------- */
+body {
+  font-family: Arial;
+  padding: 20px;
+}
+
+section {
+  border: 2px solid #ccc;
+  padding: 15px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+}
+
+/* boxy dla poszczególnych wariantów */
+.box {
+  width: 120px;
+  height: 120px;
+  background: lightgray;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+/* Wariant 7 – miganie */
+#btn7 {
+  background: gray;
+  padding: 10px 20px;
+  transition: 0.2s;
+}
+
+/* Wariant 9 – obracanie */
+#box9 {
+  background: teal;
+}
+
+/* Wariant 2 – powiększanie */
+#box2 {
+  background: skyblue;
+}
+
+/* Wariant 3 – przesuwanie */
+#box3 {
+  background: salmon;
+}
+</style>
+</head>
+<body>
+
+<h1>Zmiany graficzne – 10 wariantów</h1>
+
+
+<!-- ============================================================
+     WARIANT 1 – Zmiana koloru boxa
+===============================================================-->
+<section>
+<h2>Wariant 1 – Zmiana koloru boxa</h2>
+
+<button id="btn1">Zmień kolor boxa</button>
+<div id="box1" class="box"></div>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 2 – Powiększanie elementu
+===============================================================-->
+<section>
+<h2>Wariant 2 – Powiększ / Pomniejsz</h2>
+
+<button id="btn2">Powiększ / Pomniejsz</button>
+<div id="box2" class="box"></div>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 3 – Przesunięcie elementu
+===============================================================-->
+<section>
+<h2>Wariant 3 – Przesuń element</h2>
+
+<button id="btn3">Przesuń element</button>
+<div id="box3" class="box"></div>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 4 – Pokazywanie i ukrywanie obrazka
+===============================================================-->
+<section>
+<h2>Wariant 4 – Pokaż / Ukryj obraz</h2>
+
+<button id="btn4">Pokaż / Ukryj obraz</button>
+<img id="img4" src="zdjęcie" style="display:none; margin-top:10px">
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 5 – Zmiana tekstu przycisku
+===============================================================-->
+<section>
+<h2>Wariant 5 – Zmiana tekstu przycisku</h2>
+
+<button id="btn5">Kliknij mnie</button>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 6 – Zmiana koloru tekstu przycisku
+===============================================================-->
+<section>
+<h2>Wariant 6 – Zmiana koloru tekstu przycisku</h2>
+
+<button id="btn6">Zmień kolor tekstu</button>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 7 – Miganie przycisku
+===============================================================-->
+<section>
+<h2>Wariant 7 – Miganie przycisku</h2>
+
+<button id="btn7">Migaj</button>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 8 – Zmiana koloru tła strony
+===============================================================-->
+<section>
+<h2>Wariant 8 – Zmiana tła strony</h2>
+
+<button id="btn8">Zmień tło strony</button>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 9 – Obracanie boxa
+===============================================================-->
+<section>
+<h2>Wariant 9 – Obróć kwadrat</h2>
+
+<button id="btn9">Obróć</button>
+<div id="box9" class="box"></div>
+
+</section>
+
+
+<!-- ============================================================
+     WARIANT 10 – Ciemny / Jasny motyw
+===============================================================-->
+<section>
+<h2>Wariant 10 – Ciemny / Jasny motyw</h2>
+
+<button id="btn10">Ciemny / Jasny motyw</button>
+
+</section>
+
+<!-- ============================================================
+     WARIANT 11
+===============================================================-->
+<button id="btn-11">Tocz kwadrat</button>
+
+<div id="box11" style="
+  width: 100px;
+  height: 100px;
+  background: rgb(227, 157, 27);
+  margin-top: 20px;
+  transition: transform 0.6s ease-out;
+"></div>
+
+
+
+<!-- ============================================================
+     SKRYPTY
+===============================================================-->
+<script>
+/* ----------------- WARIANT 1 – Zmiana koloru boxa ----------------- */
+const b1 = document.getElementById("btn1");
+const box1 = document.getElementById("box1");
+const colors1 = ["red", "green", "blue", "purple", "orange"];
+let idx1 = 0;
+
+b1.addEventListener("click", () => {
+  box1.style.backgroundColor = colors1[idx1];
+  idx1 = (idx1 + 1) % colors1.length;
+});
+
+
+/* ----------------- WARIANT 2 – Powiększenie ----------------- */
+const b2 = document.getElementById("btn2");
+const box2 = document.getElementById("box2");
+let zoom = false;
+
+b2.addEventListener("click", () => {
+  zoom = !zoom;
+  box2.style.transform = zoom ? "scale(1.4)" : "scale(1)";
+});
+
+
+/* ----------------- WARIANT 3 – Przesuwanie elementu ----------------- */
+const b3 = document.getElementById("btn3");
+const box3 = document.getElementById("box3");
+let moved = false;
+
+b3.addEventListener("click", () => {
+  moved = !moved;
+  box3.style.marginLeft = moved ? "200px" : "0px";
+});
+
+
+/* ----------------- WARIANT 4 – Pokaż / Ukryj obraz ----------------- */
+const b4 = document.getElementById("btn4");
+const img4 = document.getElementById("img4");
+let visible = false;
+
+b4.addEventListener("click", () => {
+  visible = !visible;
+  img4.style.display = visible ? "block" : "none";
+});
+
+
+/* ----------------- WARIANT 5 – Zmiana tekstu przycisku ----------------- */
+const b5 = document.getElementById("btn5");
+let pressed = false;
+
+b5.addEventListener("click", () => {
+  pressed = !pressed;
+  b5.textContent = pressed ? "Kliknięto!" : "Kliknij mnie";
+});
+
+
+/* ----------------- WARIANT 6 – Zmiana koloru tekstu przycisku ----------------- */
+const b6 = document.getElementById("btn6");
+const textColors = ["red", "green", "blue", "gold", "pink"];
+let idx6 = 0;
+
+b6.addEventListener("click", () => {
+  b6.style.color = textColors[idx6];
+  idx6 = (idx6 + 1) % textColors.length;
+});
+
+
+/* ----------------- WARIANT 7 – Miganie przycisku ----------------- */
+const b7 = document.getElementById("btn7");
+let blinking = false;
+let intervalId;
+
+b7.addEventListener("click", () => {
+  blinking = !blinking;
+
+  if (blinking) {
+    intervalId = setInterval(() => {
+      b7.style.backgroundColor =
+        b7.style.backgroundColor === "yellow" ? "gray" : "yellow";
+    }, 150);
+  } else {
+    clearInterval(intervalId);
+    b7.style.backgroundColor = "red";
+  }
+});
+
+
+/* ----------------- WARIANT 8 – Zmiana tła strony ----------------- */
+const b8 = document.getElementById("btn8");
+const bgColors = ["#ff7675", "black", "#74b9ff", "#55efc4", "#ffeaa7"];
+let idx8 = 0;
+
+b8.addEventListener("click", () => {
+  document.body.style.backgroundColor = bgColors[idx8];
+  idx8 = (idx8 + 1) % bgColors.length;
+});
+
+
+/* ----------------- WARIANT 9 – Obracanie kwadratu ----------------- */
+const b9 = document.getElementById("btn9");
+const box9 = document.getElementById("box9");
+let rot = 0;
+
+b9.addEventListener("click", () => {
+  rot += 45;
+  box9.style.transform = `rotate(${rot}deg)`;
+});
+
+
+/* ----------------- WARIANT 10 – Ciemny / Jasny motyw ----------------- */
+const b10 = document.getElementById("btn10");
+let dark = false;
+
+b10.addEventListener("click", () => {
+  dark = !dark;
+  document.body.style.backgroundColor = dark ? "#222" : "white";
+  document.body.style.color = dark ? "white" : "black";
+});
+
+/* ----------------- WARIANT 11 ----------------- */
+// Funkcja ustawiająca transformację + przesunięcie
+const b11 = document.getElementById("btn-11");
+const box11 = document.getElementById("box11");
+
+let roll = false;
+let angle = 0;
+let pos = 0;
+
+// funkcja odpowiadająca za toczenie
+function toczKwadrat(element, aktywne) {
+  if (aktywne) {
+    angle += 180;   // obrót jak przy toczeniu
+    pos += 0;    // przesunięcie o szerokość kwadratu
+  } else {
+    angle = 0;     // reset
+    pos = 0;
+  }
+
+  element.style.transform =
+    "translateX(" + pos + "px) rotate(" + angle + "deg)";
+}
+
+b11.addEventListener("click", () => {
+  roll = !roll;
+  toczKwadrat(box11, roll);
+
+  b11.textContent = roll ? "Reset" : "Tocz kwadrat";
+});
+
+
+</script>
+
+</body>
+</html>

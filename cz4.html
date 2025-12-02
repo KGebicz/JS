@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>JS_4 – Mega Customizer CSS (Box w każdej sekcji)</title>
+<style>
+  body { font-family: Arial; padding: 20px; }
+
+  .panel {
+    padding: 15px;
+    background: #f0f0f0;
+    border: 1px solid #999;
+    margin-bottom: 30px;
+  }
+
+  .preview-box {
+    width: 200px;
+    height: 200px;
+    margin-top: 15px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+  }
+
+  textarea { width: 100%; height: 120px; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<h1>JS_4 – Mega Customizacja CSS (Box w każdej sekcji)</h1>
+
+<!-- ===========================================================
+      SEK. 1 — KOLORY
+=============================================================== -->
+<div class="panel">
+  <h3>Kolor boxa (checkboxy + picker)</h3>
+
+  <label><input type="checkbox" id="color-red"> Czerwony</label><br>
+  <label><input type="checkbox" id="color-green"> Zielony</label><br>
+  <label><input type="checkbox" id="color-blue"> Niebieski</label><br>
+
+  <br>
+
+  <label>Wybierz kolor: <input type="color" id="color-picker"></label>
+  <br><br>
+
+  <button id="apply-gradient">Gradient</button>
+  <button id="apply-rainbow">Tęcza</button>
+
+  <div id="box-colors" class="preview-box">Kolory</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 2 — ROZMIARY
+=============================================================== -->
+<div class="panel">
+  <h3>Rozmiar i kształt</h3>
+
+  Szerokość: <input type="range" id="width-slider" min="100" max="500" value="200"><br>
+  Wysokość: <input type="range" id="height-slider" min="100" max="500" value="200"><br>
+  Zaokrąglenie: <input type="range" id="radius-slider" min="0" max="50" value="0"><br>
+
+  Border szer.: <input type="range" id="border-slider" min="0" max="20" value="0"><br>
+  Border kolor: <input type="color" id="border-color">
+
+  <div id="box-size" class="preview-box">Rozmiary</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 3 — TRANSFORM
+=============================================================== -->
+<div class="panel">
+  <h3>Transformacje</h3>
+
+  Obrót: <input type="range" id="rotate-slider" min="-180" max="180" value="0"><br>
+  Skala: <input type="range" id="scale-slider" min="0.5" max="2" step="0.01" value="1"><br>
+  SkewX: <input type="range" id="skewx-slider" min="-50" max="50" value="0"><br>
+  SkewY: <input type="range" id="skewy-slider" min="-50" max="50" value="0"><br>
+
+  <div id="box-transform" class="preview-box">Transform</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 4 — FILTRY
+=============================================================== -->
+<div class="panel">
+  <h3>Filtry</h3>
+
+  Blur: <input type="range" id="blur-slider" min="0" max="20" value="0"><br>
+  Jasność: <input type="range" id="bright-slider" min="50" max="200" value="100"><br>
+  Kontrast: <input type="range" id="contrast-slider" min="50" max="200" value="100"><br>
+  Nasycenie: <input type="range" id="saturate-slider" min="50" max="200" value="100"><br>
+
+  <div id="box-filters" class="preview-box">Filtry</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 5 — TEKST
+=============================================================== -->
+<div class="panel">
+  <h3>Tekst</h3>
+
+  <input type="text" id="box-text" placeholder="Treść boxa"><br><br>
+
+  Rozmiar czcionki:  
+  <input type="range" id="font-size-slider" min="10" max="50" value="16"><br>
+
+  Font-family:
+  <select id="font-family">
+    <option value="Arial">Arial</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Tahoma">Tahoma</option>
+  </select>
+
+  <div id="box-textbox" class="preview-box">Tekst</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 6 — ANIMACJE
+=============================================================== -->
+<div class="panel">
+  <h3>Animacja</h3>
+
+  Duration (s): <input type="range" id="anim-duration" min="0" max="5" value="0.3" step="0.1"><br>
+  Delay (s): <input type="range" id="anim-delay" min="0" max="3" value="0" step="0.1"><br>
+
+  Easing:
+  <select id="anim-easing">
+    <option value="ease">ease</option>
+    <option value="linear">linear</option>
+    <option value="ease-in">ease-in</option>
+    <option value="ease-out">ease-out</option>
+    <option value="ease-in-out">ease-in-out</option>
+  </select>
+
+  <div id="box-animation" class="preview-box">Animacja</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 7 — PRESETY
+=============================================================== -->
+<div class="panel">
+  <h3>Presety (gotowe style)</h3>
+
+  <button id="preset-round">Zaokrąglony</button>
+  <button id="preset-shadow">Cień / Dark</button>
+  <button id="preset-big">Duży</button>
+
+  <div id="box-presets" class="preview-box">Presety</div>
+</div>
+
+
+<!-- ===========================================================
+      SEK. 8 — ZAPIS / WYGENEROWANIE CSS
+=============================================================== -->
+<div class="panel">
+  <h3>Zapis i generowanie CSS</h3>
+
+  <button id="save-theme">Zapisz motyw</button>
+  <button id="load-theme">Wczytaj motyw</button>
+  <button id="reset-style">RESET</button>
+
+  <textarea id="css-output"></textarea>
+
+  <div id="box-save" class="preview-box">Zapis</div>
+</div>
+
+
+
+<script>
+/* ===========================================================
+   Helper — skracanie zapisu CSS
+=========================================================== */
+function setStyle(el, prop, val) {
+  el.style[prop] = val;
+}
+
+/* PREVIEW BOXY */
+const boxColor   = document.getElementById("box-colors");
+const boxSize    = document.getElementById("box-size");
+const boxTrans   = document.getElementById("box-transform");
+const boxFilter  = document.getElementById("box-filters");
+const boxText    = document.getElementById("box-textbox");
+const boxAnim    = document.getElementById("box-animation");
+const boxPreset  = document.getElementById("box-presets");
+const boxSave    = document.getElementById("box-save");
+
+
+/* ===========================================================
+   SEK. 1 — Kolory
+=========================================================== */
+function applyCheckboxColors() {
+  if (document.getElementById("color-red").checked)
+    setStyle(boxColor, "backgroundColor", "red");
+
+  if (document.getElementById("color-green").checked)
+    setStyle(boxColor, "backgroundColor", "green");
+
+  if (document.getElementById("color-blue").checked)
+    setStyle(boxColor, "backgroundColor", "blue");
+}
+
+["color-red","color-green","color-blue"].forEach(id=>{
+  document.getElementById(id).addEventListener("change", applyCheckboxColors);
+});
+
+document.getElementById("color-picker").addEventListener("input", e => {
+  boxColor.style.background = e.target.value;
+});
+
+document.getElementById("apply-gradient").addEventListener("click", () => {
+  boxColor.style.background = "linear-gradient(45deg, red, blue)";
+});
+
+document.getElementById("apply-rainbow").addEventListener("click", () => {
+  boxColor.style.background =
+    "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
+});
+
+
+/* ===========================================================
+   SEK. 2 — Rozmiary / Border
+=========================================================== */
+document.getElementById("width-slider")
+  .addEventListener("input", e => boxSize.style.width = e.target.value + "px");
+
+document.getElementById("height-slider")
+  .addEventListener("input", e => boxSize.style.height = e.target.value + "px");
+
+document.getElementById("radius-slider")
+  .addEventListener("input", e => boxSize.style.borderRadius = e.target.value + "%");
+
+document.getElementById("border-slider")
+  .addEventListener("input", e => {
+    boxSize.style.border = e.target.value + "px solid black";
+  });
+
+document.getElementById("border-color")
+  .addEventListener("input", e => boxSize.style.borderColor = e.target.value);
+
+
+/* ===========================================================
+   SEK. 3 — Transform
+=========================================================== */
+function updateTransform() {
+  const r = document.getElementById("rotate-slider").value;
+  const s = document.getElementById("scale-slider").value;
+  const sx = document.getElementById("skewx-slider").value;
+  const sy = document.getElementById("skewy-slider").value;
+
+  boxTrans.style.transform =
+    `rotate(${r}deg) scale(${s}) skew(${sx}deg, ${sy}deg)`;
+}
+
+["rotate-slider","scale-slider","skewx-slider","skewy-slider"]
+  .forEach(id => document.getElementById(id).addEventListener("input", updateTransform));
+
+
+/* ===========================================================
+   SEK. 4 — Filtry
+=========================================================== */
+function updateFilter() {
+  const blur = document.getElementById("blur-slider").value;
+  const bright = document.getElementById("bright-slider").value;
+  const contr = document.getElementById("contrast-slider").value;
+  const sat = document.getElementById("saturate-slider").value;
+
+  boxFilter.style.filter =
+    `blur(${blur}px) brightness(${bright}%) contrast(${contr}%) saturate(${sat}%)`;
+}
+
+["blur-slider","bright-slider","contrast-slider","saturate-slider"]
+  .forEach(id => document.getElementById(id).addEventListener("input", updateFilter));
+
+
+/* ===========================================================
+   SEK. 5 — Tekst
+=========================================================== */
+document.getElementById("box-text")
+  .addEventListener("input", e => boxText.textContent = e.target.value);
+
+document.getElementById("font-size-slider")
+  .addEventListener("input", e => boxText.style.fontSize = e.target.value + "px");
+
+document.getElementById("font-family")
+  .addEventListener("change", e => boxText.style.fontFamily = e.target.value);
+
+
+/* ===========================================================
+   SEK. 6 — Animacja
+=========================================================== */
+function updateAnimation() {
+  const dur = document.getElementById("anim-duration").value;
+  const del = document.getElementById("anim-delay").value;
+  const ease = document.getElementById("anim-easing").value;
+
+  boxAnim.style.transition = `${dur}s ${ease} ${del}s`;
+}
+
+["anim-duration","anim-delay","anim-easing"]
+  .forEach(id => document.getElementById(id).addEventListener("input", updateAnimation));
+
+
+/* ===========================================================
+   SEK. 7 — Presety
+=========================================================== */
+document.getElementById("preset-round")
+  .addEventListener("click", () => {
+    boxPreset.style.borderRadius = "50%";
+    boxPreset.style.background = "pink";
+  });
+
+document.getElementById("preset-shadow")
+  .addEventListener("click", () => {
+    boxPreset.style.background = "#333";
+    boxPreset.style.color = "white";
+    boxPreset.style.boxShadow = "0 0 25px black";
+  });
+
+document.getElementById("preset-big")
+  .addEventListener("click", () => {
+    boxPreset.style.width = "300px";
+    boxPreset.style.height = "300px";
+    boxPreset.style.fontSize = "28px";
+  });
+
+
+/* ===========================================================
+   SEK. 8 — Zapis, Odczyt, CSS
+=========================================================== */
+document.getElementById("save-theme").addEventListener("click", () => {
+  localStorage.setItem("big-theme", boxPreset.style.cssText);
+  boxSave.textContent = "Zapisano!";
+});
+
+document.getElementById("load-theme").addEventListener("click", () => {
+  boxPreset.style.cssText = localStorage.getItem("big-theme");
+  boxSave.textContent = "Wczytano!";
+});
+
+document.getElementById("reset-style").addEventListener("click", () => {
+  boxPreset.style.cssText = "";
+  boxSave.textContent = "RESET";
+});
+
+setInterval(() => {
+  document.getElementById("css-output").value = boxPreset.style.cssText;
+}, 300);
+
+</script>
+
+</body>
+</html>

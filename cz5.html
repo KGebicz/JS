@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>JS2–JS4–JS7 Mega Projekt</title>
+<style>
+  body { font-family: Arial; padding: 20px; }
+
+  .panel {
+    padding: 15px;
+    background: #f5f5f5;
+    border: 1px solid #aaa;
+    margin-bottom: 40px;
+  }
+
+  .section-box {
+    width: 150px;
+    height: 150px;
+    background: #ddd;
+    margin-top: 15px;
+    transition: all 0.4s ease;
+  }
+
+  textarea { width: 100%; padding: 10px; font-family: monospace; }
+
+  .preview-box { 
+    width: 200px; 
+    height: 200px; 
+    background: #eee; 
+    margin-top: 10px; 
+    border: 1px solid #aaa;
+    transition: all 0.3s ease;
+  }
+</style>
+</head>
+<body>
+
+<h1>JS2 – JS4 – JS7 KOMPLET</h1>
+
+<!-- ====================================================
+                      JS_2
+===================================================== -->
+
+<div class="panel">
+  <h2>JS_2 – Tablice dynamiczne</h2>
+
+  <button id="arr-add">Dodaj element</button>
+  <button id="arr-remove">Usuń ostatni</button>
+
+  <pre id="arr-out"></pre>
+
+  <div id="box-js2" class="section-box">JS2 BOX</div>
+</div>
+
+
+<div class="panel">
+  <h2>JS_2 – Tablica o rozmiarze użytkownika</h2>
+
+  <input type="number" id="arr-size" placeholder="Podaj rozmiar">
+  <button id="arr-generate">Generuj tablicę</button>
+
+  <pre id="arr-size-out"></pre>
+
+  <div id="box-js2b" class="section-box">JS2 BOX</div>
+</div>
+
+
+<!-- ====================================================
+                      JS_4 – SUPER ROZBUDOWANY
+===================================================== -->
+
+<div class="panel">
+  <h2>JS_4 – Customizacja BOXA</h2>
+
+  <h3>KOLORY</h3>
+  <label><input type="checkbox" id="color-red"> Czerwony</label><br>
+  <label><input type="checkbox" id="color-green"> Zielony</label><br>
+  <label><input type="checkbox" id="color-blue"> Niebieski</label><br>
+  <label><input type="checkbox" id="color-gradient"> Gradient</label><br>
+  <label><input type="checkbox" id="color-rainbow"> Tęcza</label><br>
+
+  <h3>ROZMIAR</h3>
+  Width: <input type="range" id="width-slider" min="50" max="400" value="150"><br>
+  Height: <input type="range" id="height-slider" min="50" max="400" value="150"><br>
+
+  <h3>KSZTAŁT</h3>
+  Border-radius: <input type="range" id="radius-slider" min="0" max="50" value="0"><br>
+  Border width: <input type="range" id="border-width-slider" min="0" max="20" value="1"><br>
+  Border color:  
+  <select id="border-color">
+    <option value="black">Czarny</option>
+    <option value="white">Biały</option>
+    <option value="red">Czerwony</option>
+    <option value="blue">Niebieski</option>
+    <option value="green">Zielony</option>
+  </select><br>
+
+  <h3>EFEKTY</h3>
+  Opacity: <input type="range" id="opacity-slider" min="0.1" max="1" value="1" step="0.1"><br>
+  Shadow: <input type="range" id="shadow-slider" min="0" max="50" value="0"><br>
+  Rotate: <input type="range" id="rotate-slider" min="0" max="360" value="0"><br>
+
+  <h3>ANIMACJE</h3>
+  <button id="anim-spin">Obrót</button>
+  <button id="anim-pulse">Puls</button>
+  <button id="anim-wiggle">Trzęsienie</button>
+  <button id="anim-reset">Reset animacji</button>
+
+  <div id="box-js4" class="section-box">JS4 BOX</div>
+</div>
+
+
+<!-- ====================================================
+                      JS_7 — GENERATOR CSS
+===================================================== -->
+
+<div class="panel">
+  <h2>JS_7 — Generator klasy CSS</h2>
+
+  Nazwa klasy:
+  <input type="text" id="css-class-name" placeholder="np. moja-klasa" style="width:200px"><br><br>
+
+  Format:
+  <select id="css-output-format">
+    <option value="css">CSS</option>
+    <option value="scss">SCSS</option>
+  </select><br><br>
+
+  <label><input type="checkbox" id="css-prefix"> Dodaj prefixy (-webkit-, -moz-)</label><br>
+  <label><input type="checkbox" id="css-comments"> Dodaj komentarze</label><br><br>
+
+  <button id="css-generate">GENERUJ</button>
+  <button id="css-copy">KOPIUJ</button>
+  <button id="css-export">EXPORT CSS</button>
+
+  <textarea id="css-class-output" style="height:250px"></textarea>
+
+  <div id="box-css-preview" class="preview-box">Podgląd klasy</div>
+</div>
+
+
+<!-- ====================================================
+                      SKRYPT
+===================================================== -->
+<script>
+
+//////////////////////////////////////////////////////////
+// JS_2 — TABLICE
+//////////////////////////////////////////////////////////
+
+let arr = [];
+
+function updateArrOut() {
+  document.getElementById("arr-out").textContent = JSON.stringify(arr, null, 2);
+}
+
+document.getElementById("arr-add").onclick = () => {
+  arr.push("elem_" + (arr.length + 1));
+  updateArrOut();
+};
+
+document.getElementById("arr-remove").onclick = () => {
+  arr.pop();
+  updateArrOut();
+};
+
+// Tablica od użytkownika
+document.getElementById("arr-generate").onclick = () => {
+  const size = Number(document.getElementById("arr-size").value);
+  const out = document.getElementById("arr-size-out");
+
+  if (size <= 0) {
+    out.textContent = "Podaj poprawną liczbę!";
+    return;
+  }
+
+  let newArr = [];
+  for (let i = 0; i < size; i++) newArr.push("Element_" + i);
+
+  out.textContent = JSON.stringify(newArr, null, 2);
+};
+
+
+//////////////////////////////////////////////////////////
+// JS_4 — SUPER CUSTOMIZER
+//////////////////////////////////////////////////////////
+
+const box4 = document.getElementById("box-js4");
+
+function setStyle(el, prop, val) {
+  el.style[prop] = val;
+}
+
+// --- KOLORY ---
+function updateColor() {
+  const r = document.getElementById("color-red").checked;
+  const g = document.getElementById("color-green").checked;
+  const b = document.getElementById("color-blue").checked;
+  const gradient = document.getElementById("color-gradient").checked;
+  const rainbow = document.getElementById("color-rainbow").checked;
+
+  if (rainbow) {
+    box4.style.background = "linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet)";
+    return;
+  }
+
+  if (gradient) {
+    box4.style.background = "linear-gradient(45deg, cyan, purple)";
+    return;
+  }
+
+  if (r) box4.style.background = "red";
+  if (g) box4.style.background = "green";
+  if (b) box4.style.background = "blue";
+
+  if (!r && !g && !b && !gradient && !rainbow)
+    box4.style.background = "#ddd";
+}
+
+document.querySelectorAll("#color-red, #color-green, #color-blue, #color-gradient, #color-rainbow")
+  .forEach(ch => ch.addEventListener("change", updateColor));
+
+
+// --- ROZMIAR ---
+document.getElementById("width-slider").oninput = e =>
+  setStyle(box4, "width", e.target.value + "px");
+
+document.getElementById("height-slider").oninput = e =>
+  setStyle(box4, "height", e.target.value + "px");
+
+
+// --- KSZTAŁT ---
+document.getElementById("radius-slider").oninput = e =>
+  setStyle(box4, "borderRadius", e.target.value + "%");
+
+document.getElementById("border-width-slider").oninput = e =>
+  setStyle(box4, "borderWidth", e.target.value + "px");
+
+document.getElementById("border-color").onchange = e =>
+  setStyle(box4, "borderColor", e.target.value);
+
+
+// --- EFEKTY ---
+document.getElementById("opacity-slider").oninput = e =>
+  setStyle(box4, "opacity", e.target.value);
+
+document.getElementById("shadow-slider").oninput = e =>
+  setStyle(box4, "boxShadow", "0 0 " + e.target.value + "px rgba(0,0,0,0.6)");
+
+document.getElementById("rotate-slider").oninput = e =>
+  setStyle(box4, "transform", "rotate(" + e.target.value + "deg)");
+
+
+// --- ANIMACJE ---
+document.getElementById("anim-spin").onclick = () => {
+  box4.style.animation = "spin 1s linear infinite";
+};
+
+document.getElementById("anim-pulse").onclick = () => {
+  box4.style.animation = "pulse 1s infinite";
+};
+
+document.getElementById("anim-wiggle").onclick = () => {
+  box4.style.animation = "wiggle 0.4s infinite";
+};
+
+document.getElementById("anim-reset").onclick = () => {
+  box4.style.animation = "none";
+};
+
+
+// Animacje CSS
+const styleAnim = document.createElement("style");
+styleAnim.textContent = `
+@keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes pulse { 0%{transform:scale(1)} 50%{transform:scale(1.2)} 100%{transform:scale(1)} }
+@keyframes wiggle { 0%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} 100%{transform:rotate(-5deg)} }
+`;
+document.head.appendChild(styleAnim);
+
+
+//////////////////////////////////////////////////////////
+// JS_7 — GENERATOR KLASY CSS
+//////////////////////////////////////////////////////////
+
+const cssName = document.getElementById("css-class-name");
+const cssFormat = document.getElementById("css-output-format");
+const cssPrefix = document.getElementById("css-prefix");
+const cssComments = document.getElementById("css-comments");
+
+const cssOutput = document.getElementById("css-class-output");
+const cssPreview = document.getElementById("box-css-preview");
+
+document.getElementById("css-generate").onclick = () => {
+  const className = cssName.value || "custom-box";
+  const style = box4.style;
+
+  let css = `.${className} {\n`;
+
+  for (let i = 0; i < style.length; i++) {
+    const prop = style[i];
+    const value = style.getPropertyValue(prop);
+
+    if (!value) continue;
+
+    if (cssComments.checked)
+      css += `  /* ${prop} */\n`;
+
+    css += `  ${prop}: ${value};\n`;
+
+    if (cssPrefix.checked) {
+      css += `  -webkit-${prop}: ${value};\n`;
+      css += `  -moz-${prop}: ${value};\n`;
+    }
+  }
+
+  css += `}`;
+
+  cssOutput.value = css;
+
+  cssPreview.className = "preview-box " + className;
+};
+
+document.getElementById("css-copy").onclick = () => {
+  cssOutput.select();
+  document.execCommand("copy");
+  alert("Skopiowano!");
+};
+
+document.getElementById("css-export").onclick = () => {
+  const file = new Blob([cssOutput.value], { type: "text/css" });
+  const url = URL.createObjectURL(file);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = (cssName.value || "custom-box") + ".css";
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+</script>
+</body>
+</html>
