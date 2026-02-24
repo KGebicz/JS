@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Formularz rejestracyjny</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formularz {
+    background: white;
+    padding: 25px;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0d47a1;
+}
+
+#wynik {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+</style>
+
+<script>
+function sprawdz() {
+
+    let login = document.getElementById("login").value.trim();
+    let haslo = document.getElementById("haslo").value;
+    let haslo2 = document.getElementById("haslo2").value;
+    let wiek = Number(document.getElementById("wiek").value);
+    let email = document.getElementById("email").value.trim();
+    let wynik = document.getElementById("wynik");
+
+    // Reset komunikatu
+    wynik.style.color = "red";
+
+    if(login.length < 3) {
+        wynik.innerText = "Login musi mieć minimum 3 znaki.";
+        return;
+    }
+
+    if(haslo.length < 6) {
+        wynik.innerText = "Hasło musi mieć minimum 6 znaków.";
+        return;
+    }
+
+    if(haslo !== haslo2) {
+        wynik.innerText = "Hasła nie są identyczne.";
+        return;
+    }
+
+    if(wiek < 18) {
+        wynik.innerText = "Musisz mieć ukończone 18 lat.";
+        return;
+    }
+
+    if(!email.includes("@")) {
+        wynik.innerText = "Niepoprawny adres email.";
+        return;
+    }
+
+    wynik.style.color = "green";
+    wynik.innerText = "Rejestracja zakończona sukcesem.";
+}
+</script>
+
+</head>
+<body>
+
+<div class="formularz">
+
+<h2>Rejestracja</h2>
+
+Login:
+<input type="text" id="login">
+
+Hasło:
+<input type="password" id="haslo">
+
+Powtórz hasło:
+<input type="password" id="haslo2">
+
+Wiek:
+<input type="number" id="wiek">
+
+Email:
+<input type="text" id="email">
+
+<button onclick="sprawdz()">Zarejestruj</button>
+
+<p id="wynik"></p>
+
+</div>
+
+</body>
+</html>
